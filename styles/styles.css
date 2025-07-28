@@ -161,7 +161,7 @@ a:any-link {
   overflow-wrap: break-word;
 }
 
-h2 a {
+h2 a, h3 a {
     color: black !important;
 }
 
