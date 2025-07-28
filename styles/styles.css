@@ -154,14 +154,18 @@ button {
 }
 
 /* links */
+
+h2 a {
+    color: black;
+}
+
+
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
   overflow-wrap: break-word;
 }
-h2 a {
-    color: black;
-}
+
 
 a:hover {
   color: var(--link-hover-color);
