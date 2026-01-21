@@ -130,7 +130,6 @@ async function loadLazy(doc) {
   loadFonts();
 }
 
-
 /**
  * Loads everything that happens a lot later,
  * without impacting the user experience.
