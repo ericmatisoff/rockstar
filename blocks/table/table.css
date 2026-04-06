@@ -1,0 +1,53 @@
+/*
+ * Table Block Styles for Edge Delivery Services
+ * Clean, readable table styling that fits most blog layouts.
+ * Customize colors/spacing to match your site's theme.
+ */
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.table thead th {
+  background-color: var(--dark-color, #333);
+  color: var(--light-color, #fff);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--dark-color, #333);
+}
+
+.table tbody td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  vertical-align: top;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: var(--light-color, #f8f8f8);
+}
+
+.table tbody tr:hover {
+  background-color: var(--highlight-color, #e8f0fe);
+}
+
+/* Responsive: horizontally scroll on small screens */
+.table {
+  overflow-x: auto;
+}
+
+/* Links inside the table */
+.table a {
+  color: var(--link-color, #1a73e8);
+  text-decoration: underline;
+}
+
+/* Images inside the table */
+.table img {
+  max-width: 200px;
+  height: auto;
+}
