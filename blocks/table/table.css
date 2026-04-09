@@ -90,10 +90,10 @@
     background-color: var(--background-color, #fff);
   }
 
-  /* Each cell stacks vertically with label on top */
+  /* Each cell stacks vertically */
   .table tbody td {
     display: block;
-    padding: 8px 16px;
+    padding: 8px 20px;
     border-bottom: 1px solid var(--border-color, #e0e0e0);
     text-align: left;
   }
@@ -102,20 +102,8 @@
     border-bottom: none;
   }
 
-  /* Column header label above the value */
+  /* Hide the column header labels on mobile */
   .table tbody td::before {
-    content: attr(data-label);
-    display: block;
-    font-weight: 700;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-    color: var(--dark-color, #555);
-  }
-
-  /* Don't show label if data-label is empty */
-  .table tbody td[data-label=""]::before {
     display: none;
   }
 
