@@ -52,18 +52,37 @@
 
 /* ── Mobile: stacked card layout ────────────── */
 
-@media screen and (max-width: 600px) {
-  /* Hide the header row — labels come from data-label */
-  .table thead {
-    display: none;
+@media screen and (max-width: 900px) {
+  /* Force every table element to block display */
+  .table table,
+  .table thead,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
+    display: block;
+    width: 100%;
   }
 
+  /* Hide the header row — labels come from data-label */
+  .table thead {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+  }
+
+  /* Each row becomes a card */
   .table tbody tr {
-    display: block;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     border: 1px solid var(--border-color, #e0e0e0);
     border-radius: 8px;
-    padding: 8px 0;
+    padding: 0;
+    overflow: hidden;
     background-color: var(--background-color, #fff);
   }
 
@@ -71,27 +90,33 @@
     background-color: var(--background-color, #fff);
   }
 
+  /* Each cell stacks vertically with label on top */
   .table tbody td {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 6px 16px;
+    display: block;
+    padding: 8px 16px;
     border-bottom: 1px solid var(--border-color, #e0e0e0);
-    text-align: right;
+    text-align: left;
   }
 
   .table tbody td:last-child {
     border-bottom: none;
   }
 
-  /* Show column header as a bold label before each value */
+  /* Column header label above the value */
   .table tbody td::before {
     content: attr(data-label);
+    display: block;
     font-weight: 700;
-    text-align: left;
-    margin-right: 16px;
-    flex-shrink: 0;
-    color: var(--dark-color, #333);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    color: var(--dark-color, #555);
+  }
+
+  /* Don't show label if data-label is empty */
+  .table tbody td[data-label=""]::before {
+    display: none;
   }
 
   .table img {
