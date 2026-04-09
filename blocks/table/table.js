@@ -1,6 +1,8 @@
 /*
  * Table Block for Edge Delivery Services
  * Converts the EDS div structure back into a proper HTML <table>.
+ * Adds data-label attributes to each <td> so CSS can display
+ * column headers inline on mobile (stacked card layout).
  *
  * Usage in Google Docs:
  * Create a table where the first row (merged cell) says "Table"
@@ -13,18 +15,30 @@ export default function decorate(block) {
   const head = document.createElement('thead');
   const body = document.createElement('tbody');
 
-  // Each direct child div of the block is a row
   const rows = [...block.children];
+
+  // Capture header labels from the first row
+  const headers = [];
 
   rows.forEach((row, i) => {
     const tr = document.createElement('tr');
-    // Each child div within a row is a cell
-    [...row.children].forEach((cell) => {
+
+    [...row.children].forEach((cell, j) => {
       const cellElement = document.createElement(i === 0 ? 'th' : 'td');
+
       // Move all child nodes into the new cell (preserves links, bold, images, etc.)
       while (cell.firstChild) {
         cellElement.append(cell.firstChild);
       }
+
+      if (i === 0) {
+        // Store header text for data-label attributes
+        headers.push(cellElement.textContent.trim());
+      } else if (headers[j]) {
+        // Tag each td with its column header for mobile display
+        cellElement.setAttribute('data-label', headers[j]);
+      }
+
       tr.append(cellElement);
     });
 

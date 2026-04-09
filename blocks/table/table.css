@@ -1,8 +1,11 @@
 /*
  * Table Block Styles for Edge Delivery Services
- * Clean, readable table styling that fits most blog layouts.
- * Customize colors/spacing to match your site's theme.
+ * Desktop: standard table with zebra striping.
+ * Mobile (<600px): each row becomes a stacked card with
+ * column headers shown via data-label attributes.
  */
+
+/* ── Desktop ────────────────────────────────── */
 
 .table table {
   width: 100%;
@@ -35,11 +38,6 @@
   background-color: var(--highlight-color, #e8f0fe);
 }
 
-/* Responsive: horizontally scroll on small screens */
-.table {
-  overflow-x: auto;
-}
-
 /* Links inside the table */
 .table a {
   color: var(--link-color, #1a73e8);
@@ -50,4 +48,53 @@
 .table img {
   max-width: 200px;
   height: auto;
+}
+
+/* ── Mobile: stacked card layout ────────────── */
+
+@media screen and (max-width: 600px) {
+  /* Hide the header row — labels come from data-label */
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 8px 0;
+    background-color: var(--background-color, #fff);
+  }
+
+  .table tbody tr:nth-child(even) {
+    background-color: var(--background-color, #fff);
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 16px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    text-align: right;
+  }
+
+  .table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  /* Show column header as a bold label before each value */
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-align: left;
+    margin-right: 16px;
+    flex-shrink: 0;
+    color: var(--dark-color, #333);
+  }
+
+  .table img {
+    max-width: 100%;
+  }
 }
