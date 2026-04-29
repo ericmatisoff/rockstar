@@ -107,7 +107,7 @@ const martechLoadedPromise = initMartech(
   // The WebSDK config
   // Documentation: https://experienceleague.adobe.com/en/docs/experience-platform/web-sdk/commands/configure/overview#configure-js
   {
-    datastreamId: '7fc414a4-9533-4edf-aeff-e16a4b01d5be',
+    datastreamId: 'f0e17ace-a291-4a5f-b622-48123bb9274b',
     orgId: 'D0F83C645C5E1CC60A495CB3@AdobeOrg',
     defaultConsent: 'in',
     onBeforeEventSend: (payload) => {
