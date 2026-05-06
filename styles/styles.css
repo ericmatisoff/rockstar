@@ -192,6 +192,16 @@ main img {
 .icon { display: inline-block; height: 24px; width: 24px; }
 .icon img { height: 100%; width: 100%; }
 
+/* Invert icons in dark mode for visibility */
+.icon-search img {
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+[data-theme="light"] .icon-search img {
+  filter: invert(0);
+}
+
 /* Sections */
 main > .section { margin: 40px 0; }
 main > .section > div { max-width: 1200px; margin: auto; padding: 0 24px; }

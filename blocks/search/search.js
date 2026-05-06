@@ -36,15 +36,45 @@ async function buildSearchIndex() {
         title: link.textContent.trim(),
         path: href,
         description: desc.trim(),
+        content: '', // will be populated async
       });
     });
 
     searchIndex = items.filter((item) => item.title.length > 3);
+
+    // Fetch full content for each post in the background
+    fetchPostContents();
+
     return searchIndex;
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error('Search index build failed:', e);
     return [];
+  }
+}
+
+async function fetchPostContents() {
+  if (!searchIndex) return;
+
+  // Fetch posts in parallel (batches of 4 to be gentle on the server)
+  const batchSize = 4;
+  for (let i = 0; i < searchIndex.length; i += batchSize) {
+    const batch = searchIndex.slice(i, i + batchSize);
+    // eslint-disable-next-line no-await-in-loop
+    await Promise.all(batch.map(async (item) => {
+      try {
+        const resp = await fetch(`${item.path}.plain.html`);
+        if (resp.ok) {
+          const html = await resp.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          // Extract text content, strip tags
+          item.content = doc.body.textContent.replace(/\s+/g, ' ').trim();
+        }
+      } catch (e) {
+        // silently skip — search will still work on title/description
+      }
+    }));
   }
 }
 
@@ -104,23 +134,48 @@ function performSearch(query, resultsEl) {
   }
 
   const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const matches = searchIndex.filter((item) => {
-    const text = `${item.title} ${item.description}`.toLowerCase();
-    return terms.every((term) => text.includes(term));
-  });
 
-  if (matches.length === 0) {
+  // Score results: title matches rank higher than content matches
+  const scored = searchIndex
+    .map((item) => {
+      const titleText = `${item.title} ${item.description}`.toLowerCase();
+      const contentText = (item.content || '').toLowerCase();
+      const titleMatch = terms.every((term) => titleText.includes(term));
+      const contentMatch = terms.every((term) => `${titleText} ${contentText}`.includes(term));
+
+      let score = 0;
+      if (titleMatch) score = 2;
+      else if (contentMatch) score = 1;
+
+      // Find a content snippet for content-only matches
+      let snippet = item.description;
+      if (!titleMatch && contentMatch && item.content) {
+        const lowerContent = item.content.toLowerCase();
+        const firstTermIdx = lowerContent.indexOf(terms[0]);
+        if (firstTermIdx > -1) {
+          const start = Math.max(0, firstTermIdx - 40);
+          const end = Math.min(item.content.length, firstTermIdx + 120);
+          snippet = (start > 0 ? '...' : '') + item.content.slice(start, end).trim() + (end < item.content.length ? '...' : '');
+        }
+      }
+
+      return { ...item, score, snippet };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  if (scored.length === 0) {
     resultsEl.innerHTML = '<li class="search-empty">No posts found. Try different keywords.</li>';
     return;
   }
 
-  resultsEl.innerHTML = matches
+  resultsEl.innerHTML = scored
     .slice(0, 10)
     .map((item) => `
       <li class="search-result-item">
         <a href="${item.path}">
           <div class="search-result-title">${item.title}</div>
-          ${item.description ? `<div class="search-result-desc">${item.description}</div>` : ''}
+          ${item.snippet ? `<div class="search-result-desc">${item.snippet}</div>` : ''}
         </a>
       </li>
     `)
