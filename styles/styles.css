@@ -217,6 +217,45 @@ main .section.light, main .section.highlight {
   padding: 40px 0;
 }
 
+/* Featured post card (default-content-wrapper with image in first section) */
+main > .section:first-of-type > .default-content-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, border-color 0.3s ease;
+  margin-top: 24px;
+}
+
+main > .section:first-of-type > .default-content-wrapper:hover {
+  box-shadow: var(--glow-gold);
+  border-color: rgba(232, 168, 56, 0.3);
+}
+
+main > .section:first-of-type > .default-content-wrapper > p:first-child {
+  margin: 0;
+}
+
+main > .section:first-of-type > .default-content-wrapper > p:first-child img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+main > .section:first-of-type > .default-content-wrapper > h2,
+main > .section:first-of-type > .default-content-wrapper > p:not(:first-child) {
+  padding: 0 32px;
+}
+
+main > .section:first-of-type > .default-content-wrapper > h2 {
+  padding-top: 24px;
+}
+
+main > .section:first-of-type > .default-content-wrapper > p:last-child {
+  padding-bottom: 32px;
+}
+
 /* Theme toggle (added via header block) */
 button.theme-toggle,
 button.theme-toggle:hover,
