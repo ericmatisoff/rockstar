@@ -16,6 +16,25 @@ header .header nav {
   height: var(--nav-height);
 }
 
+/* Hide hamburger menu on desktop */
+header .header nav .nav-hamburger {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  header .header nav .nav-hamburger {
+    display: block;
+  }
+  header .header nav .nav-hamburger button {
+    background: none !important;
+    border: none !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
 header .header nav .nav-brand a {
   font-family: var(--font-display);
   font-size: 24px;
