@@ -13,6 +13,21 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+
+  // Make entire card clickable — find the first link in each card and use its href
+  ul.querySelectorAll('li').forEach((li) => {
+    const link = li.querySelector('a[href]');
+    if (link) {
+      const href = link.getAttribute('href');
+      li.style.cursor = 'pointer';
+      li.addEventListener('click', (e) => {
+        // Don't double-navigate if they clicked the actual link
+        if (e.target.closest('a')) return;
+        window.location.href = href;
+      });
+    }
+  });
+
   block.textContent = '';
   block.append(ul);
 }
