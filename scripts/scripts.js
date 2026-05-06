@@ -253,11 +253,27 @@ function initThemeToggle() {
 // Apply theme immediately (before paint)
 document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
 
+// Make featured post card fully clickable
+function initFeaturedCardClick() {
+  const featured = document.querySelector('main > .section:first-of-type > .default-content-wrapper');
+  if (featured) {
+    const link = featured.querySelector('a[href]');
+    if (link) {
+      featured.style.cursor = 'pointer';
+      featured.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        window.location.href = link.getAttribute('href');
+      });
+    }
+  }
+}
+
 // Wait for header to load, then inject toggle
 const headerObserver = new MutationObserver(() => {
   const nav = document.querySelector('header nav');
   if (nav && !nav.querySelector('.theme-toggle')) {
     initThemeToggle();
+    initFeaturedCardClick();
     headerObserver.disconnect();
   }
 });
