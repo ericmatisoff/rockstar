@@ -208,24 +208,32 @@ main .section.light, main .section.highlight {
 }
 
 /* Theme toggle (added via header block) */
-.theme-toggle {
-  background: none;
-  border: 2px solid var(--border-subtle);
-  color: var(--text-primary);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
+button.theme-toggle,
+button.theme-toggle:hover,
+button.theme-toggle:focus {
+  background: none !important;
+  background-color: transparent !important;
+  border: 2px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px;
+  border-radius: 50% !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 18px;
   transition: all 0.3s ease;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  line-height: 1;
+  white-space: normal;
+  overflow: visible;
 }
 
-.theme-toggle:hover {
-  border-color: var(--accent-gold);
+button.theme-toggle:hover {
+  border-color: var(--accent-gold) !important;
   transform: scale(1.1);
 }

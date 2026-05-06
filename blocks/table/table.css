@@ -16,31 +16,36 @@
 }
 
 .table thead th {
-  background-color: var(--dark-color, #333);
-  color: var(--light-color, #fff);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   font-weight: 700;
   text-align: left;
   padding: 12px 16px;
-  border-bottom: 2px solid var(--dark-color, #333);
+  border-bottom: 2px solid var(--border-subtle);
 }
 
 .table tbody td {
   padding: 10px 16px;
-  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  border-bottom: 1px solid var(--border-subtle);
   vertical-align: top;
+  color: var(--text-primary);
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: var(--light-color, #f8f8f8);
+  background-color: var(--bg-secondary);
+}
+
+.table tbody tr:nth-child(even) td {
+  color: var(--text-primary);
 }
 
 .table tbody tr:hover {
-  background-color: var(--highlight-color, #e8f0fe);
+  background-color: var(--bg-card);
 }
 
 /* Links inside the table */
 .table a {
-  color: var(--link-color, #1a73e8);
+  color: var(--link-color);
   text-decoration: underline;
 }
 
@@ -79,23 +84,24 @@
   /* Each row becomes a card */
   .table tbody tr {
     margin-bottom: 16px;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     padding: 0;
     overflow: hidden;
-    background-color: var(--background-color, #fff);
+    background-color: var(--bg-card);
   }
 
   .table tbody tr:nth-child(even) {
-    background-color: var(--background-color, #fff);
+    background-color: var(--bg-card);
   }
 
   /* Each cell stacks vertically */
   .table tbody td {
     display: block;
     padding: 8px 32px 8px 20px;
-    border-bottom: 1px solid var(--border-color, #e0e0e0);
+    border-bottom: 1px solid var(--border-subtle);
     text-align: left;
+    color: var(--text-primary);
   }
 
   .table tbody td:last-child {

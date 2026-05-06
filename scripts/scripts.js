@@ -248,14 +248,15 @@ function initThemeToggle() {
   }
 }
 
-// Hook into EDS loading
-const originalLoadEager = window.loadEager;
-if (typeof loadEager === 'function') {
-  const _origLoadEager = loadEager;
-  window.loadEager = async function(doc) {
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
-    return _origLoadEager(doc);
-  };
-}
+// Apply theme immediately (before paint)
+document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
 
-document.addEventListener('DOMContentLoaded', initThemeToggle);
+// Wait for header to load, then inject toggle
+const headerObserver = new MutationObserver(() => {
+  const nav = document.querySelector('header nav');
+  if (nav && !nav.querySelector('.theme-toggle')) {
+    initThemeToggle();
+    headerObserver.disconnect();
+  }
+});
+headerObserver.observe(document.documentElement, { childList: true, subtree: true });
