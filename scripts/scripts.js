@@ -214,6 +214,8 @@ function loadDelayed() {
     return import('./delayed.js');
   }, 3000);
   // load anything that can be postponed to the latest here
+  // Load search functionality
+  import('../blocks/search/search.js');
 }
 
 async function loadPage() {
