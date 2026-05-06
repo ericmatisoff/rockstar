@@ -1,37 +1,56 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
-  padding: 0;
-}
-
-.hero {
+.hero-wrapper, .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  transition: box-shadow 0.4s ease;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+.hero:hover {
+  box-shadow: var(--glow-gold);
 }
 
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+.hero > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
 }
 
-.hero img {
-  object-fit: cover;
+.hero > div > div:first-child {
+  overflow: hidden;
+}
+
+.hero > div > div:first-child img,
+.hero > div > div:first-child picture img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 320px;
+  border-radius: 0;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+.hero > div > div:last-child {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero > div > div:last-child h1 {
+  font-size: var(--heading-font-size-xl);
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .hero > div {
+    grid-template-columns: 1fr;
+  }
+  .hero > div > div:first-child img,
+  .hero > div > div:first-child picture img {
+    height: 200px;
+    min-height: unset;
   }
 }

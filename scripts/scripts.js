@@ -223,3 +223,39 @@ async function loadPage() {
 }
 
 loadPage();
+
+// Theme toggle
+function initThemeToggle() {
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+
+  // Create toggle button and add to header
+  const header = document.querySelector('header nav');
+  if (header) {
+    const toggle = document.createElement('button');
+    toggle.className = 'theme-toggle';
+    toggle.setAttribute('aria-label', 'Toggle theme');
+    toggle.textContent = saved === 'dark' ? '☀️' : '🌙';
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', next);
+    });
+    header.appendChild(toggle);
+  }
+}
+
+// Hook into EDS loading
+const originalLoadEager = window.loadEager;
+if (typeof loadEager === 'function') {
+  const _origLoadEager = loadEager;
+  window.loadEager = async function(doc) {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    return _origLoadEager(doc);
+  };
+}
+
+document.addEventListener('DOMContentLoaded', initThemeToggle);

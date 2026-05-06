@@ -1,27 +1,104 @@
+.cards-wrapper, .cards {
+  margin-top: 40px;
+}
+
 .cards > ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+  cursor: pointer;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+.cards > ul > li:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow-purple);
+  border-color: rgba(155,89,240,0.3);
 }
 
-.cards .cards-card-image {
-  line-height: 0;
+.cards > ul > li:nth-child(even):hover {
+  box-shadow: var(--glow-gold);
+  border-color: rgba(232,168,56,0.3);
 }
 
-.cards > ul > li img {
+/* Top gradient bar on hover */
+.cards > ul > li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-purple));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cards > ul > li:hover::before {
+  opacity: 1;
+}
+
+.cards > ul > li:nth-child(even)::before {
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+}
+
+/* Card image */
+.cards > ul > li .cards-card-image {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 180px;
+  overflow: hidden;
+}
+
+.cards > ul > li .cards-card-image img,
+.cards > ul > li .cards-card-image picture img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* Card body */
+.cards > ul > li .cards-card-body {
+  padding: 24px 32px 32px;
+}
+
+.cards > ul > li .cards-card-body h2,
+.cards > ul > li .cards-card-body h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.cards > ul > li .cards-card-body h2 a,
+.cards > ul > li .cards-card-body h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.cards > ul > li .cards-card-body h2 a:hover,
+.cards > ul > li .cards-card-body h3 a:hover {
+  color: var(--accent-gold);
+}
+
+.cards > ul > li .cards-card-body p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
 }
