@@ -1,0 +1,122 @@
+/* Code Block Styles */
+
+.code {
+  margin: 2rem 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+.code-block-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1d1f21;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+}
+
+/* Header bar with language label and copy button */
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: #2d2f33;
+  border-bottom: 1px solid #3d3f43;
+}
+
+.code-block-lang {
+  font-family: var(--body-font-family, sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Copy button */
+.code-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  background: transparent;
+  color: #9ca3af;
+  font-family: var(--body-font-family, sans-serif);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.code-copy-btn:hover {
+  background-color: #374151;
+  color: #e5e7eb;
+  border-color: #6b7280;
+}
+
+.code-copy-btn.copied {
+  color: #34d399;
+  border-color: #34d399;
+}
+
+.code-copy-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Code area */
+.code-block-wrapper pre {
+  margin: 0;
+  padding: 20px 24px;
+  overflow-x: auto;
+  background: none;
+  border-radius: 0;
+}
+
+.code-block-wrapper pre code {
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #c5c8c6;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 2;
+}
+
+/* Override Prism tomorrow theme to avoid conflicts */
+.code-block-wrapper pre[class*="language-"] {
+  margin: 0;
+  padding: 20px 24px;
+  background: none;
+}
+
+/* Scrollbar styling */
+.code-block-wrapper pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-track {
+  background: #2d2f33;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 3px;
+}
+
+.code-block-wrapper pre::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .code-block-wrapper pre {
+    padding: 16px;
+  }
+
+  .code-block-wrapper pre code {
+    font-size: 13px;
+  }
+}
