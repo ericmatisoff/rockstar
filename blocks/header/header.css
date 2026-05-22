@@ -318,3 +318,21 @@ header nav .nav-tools {
 [data-theme="dark"] .dark-mode-toggle .icon-moon {
   display: none;
 }
+
+/* EQ bars mark in nav brand */
+.nav-eq-mark {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  color: var(--link-color, #E8930C);
+  transition: transform var(--transition-normal, 200ms ease-out);
+}
+
+.nav-eq-mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-brand:hover .nav-eq-mark {
+  transform: translateY(-1px) scale(1.08);
+}

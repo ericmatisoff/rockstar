@@ -1,5 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import { toggleTheme } from '../../scripts/dark-mode.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -132,6 +133,41 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Add EQ bars mark before brand text
+  if (navBrand) {
+    const eqMark = document.createElement('span');
+    eqMark.className = 'nav-eq-mark';
+    eqMark.setAttribute('aria-hidden', 'true');
+    eqMark.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="19" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="1" y="16.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="1" y="13.4" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="1" y="10.6" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="1" y="7.8" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="1" y="5" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="5.2" y="19" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="5.2" y="16.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="5.2" y="13.4" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="5.2" y="10.6" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="19" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="16.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="13.4" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="10.6" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="7.8" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="5" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="9.4" y="2.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="13.6" y="19" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="13.6" y="16.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="13.6" y="13.4" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="13.6" y="10.6" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="13.6" y="7.8" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="17.8" y="19" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="17.8" y="16.2" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+      <rect x="17.8" y="13.4" width="3.2" height="1.8" rx="0.6" fill="currentColor"/>
+    </svg>`;
+    navBrand.prepend(eqMark);
+  }
+
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
@@ -144,6 +180,22 @@ export default async function decorate(block) {
         }
       });
     });
+  }
+
+  // Dark mode toggle
+  const navTools = nav.querySelector('.nav-tools');
+  const darkToggle = document.createElement('button');
+  darkToggle.className = 'dark-mode-toggle';
+  darkToggle.setAttribute('aria-label', 'Toggle dark mode');
+  darkToggle.setAttribute('type', 'button');
+  darkToggle.innerHTML = `
+    <span class="icon-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+    <span class="icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>`;
+  darkToggle.addEventListener('click', toggleTheme);
+  if (navTools) {
+    navTools.append(darkToggle);
+  } else {
+    nav.append(darkToggle);
   }
 
   // hamburger for mobile
