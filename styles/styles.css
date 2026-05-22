@@ -380,3 +380,39 @@ table td {
 table tbody tr:nth-child(even) {
   background-color: var(--color-surface);
 }
+
+/* Tighter section spacing to match prototype */
+main > .section.columns-container {
+  margin-bottom: 24px;
+}
+
+main > .section.cards-container {
+  margin-top: 24px;
+}
+
+/* Featured article styling - the first default-content after columns */
+main > .section.columns-container .default-content-wrapper {
+  border: 1px solid var(--color-border, #E0E0E0);
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+/* Date styling in cards and articles */
+.cards .cards-card-body p:first-of-type {
+  font-size: var(--body-font-size-xs, 14px);
+  color: var(--color-text-secondary, #555555);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* Remove underline from card heading links */
+.cards .cards-card-body h2 a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.cards .cards-card-body h2 a:hover {
+  color: var(--link-color, #E8930C);
+}

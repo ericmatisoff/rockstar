@@ -9,6 +9,7 @@
 
 .cards > ul > li {
   border: 1px solid var(--color-border, #E0E0E0);
+  border-top: 3px solid transparent;
   border-radius: 8px;
   background-color: var(--color-card-bg, var(--background-color));
   overflow: hidden;
@@ -20,7 +21,7 @@
 .cards > ul > li:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover, 0 8px 24px rgba(0, 0, 0, 0.08));
-  border-top: 3px solid var(--color-border-accent, #E8930C);
+  border-top-color: var(--color-border-accent, #E8930C);
 }
 
 .cards .cards-card-body {
