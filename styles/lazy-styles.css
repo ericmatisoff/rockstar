@@ -1,6 +1,4 @@
-/* add global styles that can be loaded post LCP here */
-
-/* Enhanced <pre> elements (default content code with copy button) */
+/* Enhanced <pre> elements */
 .pre-enhanced-wrapper {
   position: relative;
   margin: 1.5rem 0;
@@ -10,9 +8,9 @@
   padding: 20px 24px;
   padding-top: 40px;
   border-radius: 8px;
-  background-color: #1d1f21;
-  color: #c5c8c6;
-  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Menlo, Consolas, monospace;
+  background-color: var(--color-code-bg, #1a1a1a);
+  color: var(--color-code-text, #e8e8e8);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
   font-size: 14px;
   line-height: 1.6;
   overflow-x: auto;
@@ -31,7 +29,7 @@
   border-radius: 4px;
   background: #2d2f33;
   color: #9ca3af;
-  font-family: var(--body-font-family, sans-serif);
+  font-family: var(--font-body, sans-serif);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -47,4 +45,15 @@
 .pre-copy-btn.copied {
   color: #34d399;
   border-color: #34d399;
+}
+
+/* Dark mode system for images */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) main img {
+    opacity: 0.9;
+  }
+}
+
+[data-theme="dark"] main img {
+  opacity: 0.9;
 }
