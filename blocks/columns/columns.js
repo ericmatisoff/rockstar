@@ -15,4 +15,19 @@ export default function decorate(block) {
       }
     });
   });
+
+  // Make the featured article column (last column with a link) fully clickable
+  const lastCol = block.querySelector(':scope > div > div:last-child');
+  if (lastCol) {
+    const link = lastCol.querySelector('a');
+    if (link) {
+      lastCol.style.cursor = 'pointer';
+      lastCol.addEventListener('click', (e) => {
+        if (e.target.closest('a') && e.target.closest('a') !== link) return;
+        if (!e.target.closest('a')) {
+          link.click();
+        }
+      });
+    }
+  }
 }

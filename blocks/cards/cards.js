@@ -10,6 +10,20 @@ export default function decorate(block) {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
       else div.className = 'cards-card-body';
     });
+
+    // Make entire card clickable via the heading link
+    const link = li.querySelector('.cards-card-body a');
+    if (link) {
+      li.style.cursor = 'pointer';
+      li.addEventListener('click', (e) => {
+        // Don't intercept if user clicked directly on a different link
+        if (e.target.closest('a') && e.target.closest('a') !== link) return;
+        if (!e.target.closest('a')) {
+          link.click();
+        }
+      });
+    }
+
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
