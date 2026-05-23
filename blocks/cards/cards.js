@@ -27,8 +27,8 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
-  // Remove title tooltips from card images
-  ul.querySelectorAll('img').forEach((img) => img.removeAttribute('title'));
+  // Remove title tooltips from images and links (prevents browser tooltip popup)
+  ul.querySelectorAll('img, a').forEach((el) => el.removeAttribute('title'));
   block.textContent = '';
   block.append(ul);
 }
