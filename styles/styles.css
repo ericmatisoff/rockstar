@@ -413,3 +413,9 @@ main > .section.columns-container {
 .cards .cards-card-body h2 a:hover {
   color: var(--link-color, #E8930C);
 }
+
+/* Padded section  spacing without background color change */
+main .section.padded {
+  margin: 0;
+  padding: 48px 0;
+}
