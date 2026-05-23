@@ -35,8 +35,18 @@
   /* Featured article card — right column gets card treatment */
   .columns > div > div:last-child {
     border: 1px solid var(--color-border, #E0E0E0);
+    border-top: 3px solid transparent;
     border-radius: var(--radius-lg, 8px);
     overflow: hidden;
+    transition: transform var(--transition-normal, 200ms ease-out),
+                box-shadow var(--transition-normal, 200ms ease-out),
+                border-color var(--transition-normal, 200ms ease-out);
+  }
+
+  .columns > div > div:last-child:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover, 0 8px 24px rgba(0, 0, 0, 0.08));
+    border-top-color: var(--color-border-accent, #E8930C);
   }
 
   /* Image inside the card — flush to edges, no border-radius (container handles it) */
