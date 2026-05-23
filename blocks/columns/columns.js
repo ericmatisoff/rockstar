@@ -16,9 +16,6 @@ export default function decorate(block) {
     });
   });
 
-  // Open all links in columns in a new tab
-  block.querySelectorAll('a').forEach((a) => a.setAttribute('target', '_blank'));
-
   // Make the featured article column (last column with a link) fully clickable
   const lastCol = block.querySelector(':scope > div > div:last-child');
   if (lastCol) {
