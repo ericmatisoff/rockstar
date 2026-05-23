@@ -5,6 +5,7 @@
 
 .columns img {
   width: 100%;
+  border-radius: var(--radius-lg, 8px);
 }
 
 .columns > div > div {
@@ -21,13 +22,49 @@
 
 @media (width >= 900px) {
   .columns > div {
-    align-items: center;
+    align-items: flex-start;
     flex-direction: unset;
-    gap: 24px;
+    gap: 32px;
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+
+  /* Featured article card — right column gets card treatment */
+  .columns > div > div:last-child {
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: var(--radius-lg, 8px);
+    overflow: hidden;
+  }
+
+  /* Image inside the card — flush to edges, no border-radius (container handles it) */
+  .columns > div > div:last-child img {
+    border-radius: 0;
+  }
+
+  /* All non-image content gets horizontal padding */
+  .columns > div > div:last-child > h2,
+  .columns > div > div:last-child > h3,
+  .columns > div > div:last-child > p:not(:has(picture)) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* First text element after image gets top spacing */
+  .columns > div > div:last-child > p:has(picture) + * {
+    padding-top: 16px;
+  }
+
+  /* Last element gets bottom padding */
+  .columns > div > div:last-child > *:last-child {
+    padding-bottom: 24px;
+  }
+
+  /* Image paragraph — no margin */
+  .columns > div > div:last-child > p:has(picture) {
+    margin: 0;
+    line-height: 0;
   }
 }
