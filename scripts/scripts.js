@@ -22,6 +22,8 @@ import {
   martechDelayed,
 } from '../plugins/martech/src/index.js';
 
+import { getEntityData } from './martech-entity.js';
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -110,15 +112,17 @@ const martechLoadedPromise = initMartech(
     datastreamId: 'f0e17ace-a291-4a5f-b622-48123bb9274b',
     orgId: 'D0F83C645C5E1CC60A495CB3@AdobeOrg',
     defaultConsent: 'in',
-    onBeforeEventSend: (payload) => {
-      // set custom Target params
-      // see doc at https://experienceleague.adobe.com/en/docs/platform-learn/migrate-target-to-websdk/send-parameters#parameter-mapping-summary
-      payload.data.__adobe.target ||= {};
+onBeforeEventSend: (payload) => {
+  // set custom Target params
+  // see doc at https://experienceleague.adobe.com/en/docs/platform-learn/migrate-target-to-websdk/send-parameters#parameter-mapping-summary
+  payload.data.__adobe.target ||= {};
+  const entity = getEntityData();
+  if (entity) Object.assign(payload.data.__adobe.target, entity);
 
-      // set custom Analytics params
-      // see doc at https://experienceleague.adobe.com/en/docs/analytics/implementation/aep-edge/data-var-mapping
-      payload.data.__adobe.analytics ||= {};
-    },
+  // set custom Analytics params
+  // see doc at https://experienceleague.adobe.com/en/docs/analytics/implementation/aep-edge/data-var-mapping
+  payload.data.__adobe.analytics ||= {};
+},
 
     // set custom datastream overrides
     // see doc at:
