@@ -42,7 +42,7 @@ export function getEntityData() {
     'entity.thumbnailUrl': getProperty('og:image'),
     'entity.message': getMeta('description'),
     // Custom attributes, names match the on-page meta tags and the CSV columns
-    'entity.products': getMeta('products'),
+    'entity.products': getMeta('products').replace(/\|/g, ','),
     'entity.content_type': getMeta('content_type'),
     'entity.level': getMeta('level'),
     'entity.published_date': getMeta('published_date'),
