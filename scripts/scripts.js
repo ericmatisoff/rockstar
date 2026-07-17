@@ -155,7 +155,7 @@ onBeforeEventSend: (payload) => {
   // The library config
   {
     launchUrls: ['https://assets.adobedtm.com/2a8c5e902548/135858afcb33/launch-cfd2724c78ba.min.js'],
-    personalization: !!getMetadata('target') && isConsentGiven,
+    personalization: isConsentGiven,
   },
 );
 
