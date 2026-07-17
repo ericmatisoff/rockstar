@@ -58,6 +58,7 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildRelatedArticles(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -158,6 +159,14 @@ onBeforeEventSend: (payload) => {
     personalization: isConsentGiven,
   },
 );
+
+function buildRelatedArticles(main) {
+  // Articles only. The metadata you added is the signal.
+  if (!getMetadata('category') && !getMetadata('article:tag')) return;
+  const section = document.createElement('div');
+  section.append(buildBlock('related-articles', ''));
+  main.append(section);
+}
 
 /**
  * Loads everything needed to get to LCP.
