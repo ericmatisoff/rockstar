@@ -161,8 +161,8 @@ onBeforeEventSend: (payload) => {
 );
 
 function buildRelatedArticles(main) {
-  // Articles only. The metadata you added is the signal.
   if (!getMetadata('category') && !getMetadata('article:tag')) return;
+  if (main.querySelector('.related-articles')) return; // already placed
   const section = document.createElement('div');
   section.append(buildBlock('related-articles', ''));
   main.append(section);
