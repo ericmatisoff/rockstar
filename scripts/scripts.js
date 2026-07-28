@@ -161,6 +161,8 @@ onBeforeEventSend: (payload) => {
 );
 
 function buildRelatedArticles(main) {
+  // Only the document's main content area, not header/footer fragments.
+  if (main !== document.querySelector('main')) return;
   if (!getMetadata('category') && !getMetadata('article:tag')) return;
   if (main.querySelector('.related-articles')) return; // already placed
   const section = document.createElement('div');
