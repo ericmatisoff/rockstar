@@ -1,6 +1,6 @@
 .countdown-block {
   margin: 1rem 0 2.5rem;
-  max-width: 540px;
+  max-width: 500px;
 }
 
 .countdown-block .countdown-label {
@@ -15,7 +15,7 @@
 .countdown-block .countdown-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.4rem;
+  gap: 0.6rem;
   margin-bottom: 1.25rem;
 }
 
@@ -24,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.9rem 0.2rem;
+  padding: 1rem 0.35rem;
   border: 1px solid #e6e6e6;
   border-radius: 12px;
   background: var(--light-color, #f6f6f6);
@@ -33,7 +33,7 @@
 .countdown-block .countdown-num {
   font-family: var(--heading-font-family, var(--body-font-family));
   font-weight: 800;
-  font-size: clamp(1.35rem, 5vw, 2.1rem);
+  font-size: clamp(1.35rem, 4.5vw, 2rem);
   line-height: 1;
   color: var(--text-color, #131313);
   font-variant-numeric: tabular-nums;

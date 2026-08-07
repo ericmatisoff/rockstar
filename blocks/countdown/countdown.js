@@ -53,6 +53,8 @@ export default function decorate(block) {
   cta.className = 'countdown-cta';
   cta.href = ctaHref;
   cta.textContent = ctaText;
+  cta.target = '_blank';
+  cta.rel = 'noopener noreferrer';
 
   block.append(heading, grid, cta);
 
