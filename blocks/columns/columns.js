@@ -1,18 +1,44 @@
-// Finds and initializes any block authored inside a column cell (for example a
-// Countdown table dropped into the left cell). EDS normally only loads blocks
-// at the top level of a section, so nested ones need a nudge.
+// Converts a table nested inside a column cell (for example a Countdown table
+// dropped into the left cell) into a real block, then decorates and loads it.
+// EDS turns top-level tables into blocks on the server, but nested tables are
+// delivered as raw <table> markup, so we rebuild and boot them on the client.
+function tableToBlock(table) {
+  const rows = [...table.querySelectorAll(':scope > tbody > tr, :scope > tr')];
+  if (!rows.length) return null;
+
+  const nameCell = rows[0].querySelector('td, th');
+  const rawName = (nameCell?.textContent || '').trim();
+  const blockName = rawName.split('(')[0].trim().toLowerCase().replace(/\s+/g, '-');
+  if (!blockName) return null;
+
+  const blockDiv = document.createElement('div');
+  blockDiv.className = blockName;
+
+  // Every row after the name row becomes a block row of cell divs.
+  rows.slice(1).forEach((tr) => {
+    const rowDiv = document.createElement('div');
+    [...tr.children].forEach((td) => {
+      const cellDiv = document.createElement('div');
+      while (td.firstChild) cellDiv.append(td.firstChild);
+      rowDiv.append(cellDiv);
+    });
+    blockDiv.append(rowDiv);
+  });
+
+  table.replaceWith(blockDiv);
+  return blockDiv;
+}
+
 async function loadNestedBlocks(block) {
   const base = (window.hlx && window.hlx.codeBasePath) || '';
 
-  const candidates = [...block.querySelectorAll(':scope > div > div > div')]
-    .filter((el) => el.className
-      && !el.classList.contains('block')
-      && !el.className.startsWith('columns'));
+  const tables = [...block.querySelectorAll(':scope > div > div table')];
 
-  await Promise.all(candidates.map(async (nested) => {
+  await Promise.all(tables.map(async (table) => {
+    const nested = tableToBlock(table);
+    if (!nested) return;
+
     const blockName = nested.classList[0];
-    if (!blockName) return;
-
     nested.classList.add('block');
     nested.dataset.blockName = blockName;
     nested.parentElement.classList.add(`${blockName}-wrapper`);
