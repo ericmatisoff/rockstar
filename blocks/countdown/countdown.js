@@ -28,6 +28,7 @@ export default function decorate(block) {
   grid.className = 'countdown-grid';
 
   const units = [
+    ['weeks', 'Weeks'],
     ['days', 'Days'],
     ['hours', 'Hours'],
     ['minutes', 'Mins'],
@@ -69,6 +70,8 @@ export default function decorate(block) {
       return;
     }
 
+    const weeks = Math.floor(diff / 604800);
+    diff -= weeks * 604800;
     const days = Math.floor(diff / 86400);
     diff -= days * 86400;
     const hours = Math.floor(diff / 3600);
@@ -76,6 +79,7 @@ export default function decorate(block) {
     const minutes = Math.floor(diff / 60);
     const seconds = diff - minutes * 60;
 
+    valueEls.weeks.textContent = weeks;
     valueEls.days.textContent = days;
     valueEls.hours.textContent = pad(hours);
     valueEls.minutes.textContent = pad(minutes);
